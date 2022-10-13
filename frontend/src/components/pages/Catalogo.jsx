@@ -2,11 +2,27 @@
 import InputSearch from '../InputSearch/InputSearch'
 import CardProduto from '../CardProduto/CardProduto';
 import '../pages/Catalogo.css'
-import {MVPBD} from '../../data/MVPBD'
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Catalogo(){
+
+    const[ produto, setProduto] = useState([])
+
+  useEffect(() => {
+    axios.get("http://localhost/produtos")
+    .then((response) => {
+      setProduto(response.data)
+    })
+
+    .catch(() => {
+      console.log("Deu errado")
+    })
+  }, [])
+
   // DEV informou que fez esse trecho para acessar a lista de produtos 
-    const data = MVPBD.produtos
+    const data = produto
   // let data = MVPBD.produtos
   
   //Alterar para ficar mais dinâmico 

@@ -5,8 +5,10 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import {CarrinhoContext} from '../../context/CarrinhoContext'
 
+
 function Cart(props){
     const {carrinho,removeCarrinho} = useContext(CarrinhoContext);
+
     // const [listaProdutos, setListaProdutos] = useState(carrinho);
 
     // const handleLimparListaProduto = () =>{
@@ -17,6 +19,7 @@ function Cart(props){
         removeCarrinho(produto)
         
     }
+
     return (
         <div className="menuCart">
             <input type="checkbox" className="check_cart" id="check_cart"/>
@@ -38,8 +41,8 @@ function Cart(props){
                 <div className="itens_cart__total">
                     TOTAL: R$ {carrinho.reduce((total,item) => total+(item.preco*item.quantidade),0)}
                 </div>
-                <div><Link to="/Checkout">
-                    <button className="button_finalizarCompra">
+                <div><Link to="/Checkout" >
+                    <button className="button_finalizarCompra" >
                             Fechar pedido
                     </button>
                         </Link>

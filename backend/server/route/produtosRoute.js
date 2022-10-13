@@ -8,4 +8,6 @@ router.get('/produtos', async function(req, res){
     res.json(produtos);
 })
 
+
+
 module.exports = router;

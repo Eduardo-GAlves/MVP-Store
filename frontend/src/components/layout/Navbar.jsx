@@ -32,7 +32,7 @@ function Navbar(props){
                             <Link to="/cadastro">Cadastro</Link>
                         </li>
                         <li className={styles.secao_menu}>
-                            <Link to="/catalogo">Catalogo</Link>
+                            <Link to="/catalogo">Catálogo</Link>
                         </li>
                         <li className={styles.secao_menu}>
                             <Link to="/produto">Produto</Link>

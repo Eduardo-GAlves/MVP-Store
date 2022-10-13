@@ -6,6 +6,10 @@ import '../CarouselSection/CarouselSection.css'
 import ProductCard from '../CardProduto/CardProduto'
 
 function CarouselSection({data, title}) {
+
+
+  
+
   // const [data, setData] = useState([props.dataUrl])
   const carousel = useRef(null)
 
@@ -39,6 +43,7 @@ function CarouselSection({data, title}) {
       <div className="carousel__tittle">
         <h1>{title}</h1>
       </div>
+
       <div className="carousel__itens" ref={carousel}>
         {data.map( produto => (
           <ProductCard dadosProduto={produto} key={produto.id}/>

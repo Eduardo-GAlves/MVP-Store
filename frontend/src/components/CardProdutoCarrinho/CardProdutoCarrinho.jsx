@@ -31,7 +31,7 @@ function CardProdutoCarrinho({produto, eventoRemover}) {
    return ( 
       <div className="cardProdutoCarrinho">
             <div className="cardProdutoCarrinho__imagem">
-                <img className="imagem_item" src={produto.imagem} alt={produto.name} />   
+                <img className="imagem_item" src={produto.imagem} alt={produto.nome} />   
             </div>
             <div className="cardProdutoCarrinho__dados">
                 <div className="produto_cart">

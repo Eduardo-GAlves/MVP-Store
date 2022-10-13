@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
-import {Link} from 'react-router-dom';
-import {useFetch} from '../../hooks/useFetch';
-import { MVPBD } from '../../data/MVPBD'
+import React, { useState, useEffect } from 'react';
 import CarouselSection from '../CarouselSection/CarouselSection'
+import axios from 'axios';
+import Produto from './Produto';
 
 
 const Home = () => {
-  const url = "http://localhost/produtos";
-  const [produtos, setProdutos] = useState();
-  
 
-  const handleListaProdutos = async function(){
-    const {data: listaProdutos, error} = useFetch(url);
-    setProdutos(listaProdutos)
-  }
+  const[ produto, setProduto] = useState([])
 
-  handleListaProdutos();
+  useEffect(() => {
+    axios.get("http://localhost/produtos")
+    .then((response) => {
+      setProduto(response.data)
+    })
+
+    .catch(() => {
+      console.log("Deu errado")
+    })
+  }, [])
   return (
     <div>
       <CarouselSection
-        data={produtos}
+        data={produto}
         // dataUrl={'http://localhost:3000/static/shoes.json'}
         title={'Novidades'}
       />

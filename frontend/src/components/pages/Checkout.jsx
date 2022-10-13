@@ -1,6 +1,14 @@
 import './checkout.css'
+import { CarrinhoContext } from '../../context/CarrinhoContext';
+import { useContext } from 'react';
 
-function Checkout() {
+function Checkout(dados7) {
+    const {carrinho,removeCarrinho} = useContext(CarrinhoContext);
+    let valorTotal = 0;
+    for(let produto of carrinho){
+        valorTotal = valorTotal+(produto.preco*produto.quantidade)
+    }
+    console.log(carrinho)
    return ( 
     <body>
         <div class="containerCheckout">
@@ -30,6 +38,9 @@ function Checkout() {
                </ul>  
             </div>
 
+
+
+
             <div class="containerPagamento">
                 <h2 class="tituloPadrao">2 - Formas de pagamento</h2>
                 <div>
@@ -47,6 +58,7 @@ function Checkout() {
                             <i class="fa-brands fa-cc-diners-club"></i>
                         </div>
                     </div>
+
 
                     <div>
                         <ul>
@@ -131,15 +143,20 @@ function Checkout() {
                 <div class="containerConfirmaçao">
                     <h3 class="tituloPadrao">3 - Revisar Itens e Envio </h3>
                     
-                    <div>
-                        <img class="imagemProduto" src="/camisa_brasil.png" alt="Camisa seleção brasileira"/>
-                        <div class="organizacaoProduto">
-                            <p class="tituloProduto">Camiseta Seleção brasileira</p>
-                            <p class="descriçaoProduto">Modelo: Masculino</p>
-                            <p class="descriçaoProduto">Quantidade: 1</p>
-                            <p class="descriçaoProduto">Tamanho: M</p>
-                            <p class="preço">R$ 229,98</p>
+
+                    {carrinho.map(produto => (
+                        <div>
+                            <img className='imagemProduto' src={produto.imagem} alt={produto.nome}/>
+                            <div className="organizacaoProduto">
+                                <p className="tituloProduto">{produto.nome}</p>
+                                <p className="descriçaoProduto">Quantidade: {produto.quantidade}</p>
+                                <p className="preço">R$ {produto.preco}</p>
+                            </div>
                         </div>
+                    ))}
+
+
+                    <div>
 
                         <div class="cupom">
                             <label class="cupomDesconto" for="textName">Cupom de Desconto:</label>
@@ -152,9 +169,6 @@ function Checkout() {
                         <div class="boxEnvio">
                             <label><input name="boxPadrao" id="boxPadrao" type="radio" value="0"/> Padrão: Envio Gratuíto - Prazo: Até 10 dias uteis</label>  
                         </div>
-                        <div class="boxEnvio">
-                            <label><input name="boxPadrao" id="boxPadrao" type="radio" value="1"/> Expresso: R$ 18,50 - Prazo: Até 4 dias uteis</label>
-                        </div>
                     </div>
 
                     <div class="finalizarCompra">
@@ -162,8 +176,8 @@ function Checkout() {
 
                         <table class="pedido">
                             <tr>
-                                <td class="descriçaoPedido">Total em Produtos (1 item)</td>
-                                <td class="descriçaoPedido">R$ 229.98</td>
+                                <td class="descriçaoPedido">Total em Produtos: ({carrinho.length})</td>
+                                <td class="descriçaoPedido">R$ {valorTotal}</td>
                             </tr>
                             <tr>
                                 <td class="descriçaoPedido">Frete</td>
@@ -171,7 +185,7 @@ function Checkout() {
                             </tr>
                             <tr>
                                 <td class="totalPedido">Total</td>
-                                <td class="totalPedido">R$ 229.98</td>
+                                <td class="totalPedido">R$ {valorTotal}</td>
                             </tr>
                         </table>
 
