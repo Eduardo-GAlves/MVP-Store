@@ -1,4 +1,4 @@
-# Repositório da segunda etapa do HACKADEV
+# Repositório do HACKADEV
 
 ### Link no Netlify ###
 <a href="https://mvp-sports.netlify.app/">MVP Store v2</a>
