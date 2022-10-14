@@ -215,7 +215,7 @@ body {
 
 
     .containerEndereço {
-        
+        width: 450px    ;
         flex: 0.6 0.8;
         border-right: solid 1px #c9c9c9;
     }
@@ -233,7 +233,9 @@ body {
     }
 
     .containerCheckout {
-        display: flex;
+        display: grid;
+        grid-template-areas: 
+        "1 2 3";
     }
     
 }

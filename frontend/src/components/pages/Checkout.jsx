@@ -1,22 +1,61 @@
 import './checkout.css'
 import { CarrinhoContext } from '../../context/CarrinhoContext';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
-function Checkout(dados7) {
+function Checkout() {
     const {carrinho,removeCarrinho} = useContext(CarrinhoContext);
     let valorTotal = 0;
+    let nomeProdutos = [];
     for(let produto of carrinho){
         valorTotal = valorTotal+(produto.preco*produto.quantidade)
+        nomeProdutos.push(produto.quantidade + ' ' + produto.nome);
     }
-    console.log(carrinho)
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData);
+        const endereco = {
+            cep: data.cep,
+            rua: data.rua,
+            numero: data.numero,
+            bairro: data.bairro,
+            complemento: data.complemento,
+            cidade: data.cidade,
+            estado: data.estado
+        }
+        const dadosCartao = {
+            numeroCartao: data.numeroCartao,
+            nomeTitular: data.userName,
+            dataValidade: data.dataValidade,
+            codigoSeguranca: data.codigoSeguranca,
+            parcelasCompra: data.parcelas,
+            precoFinal: valorTotal
+        }
+        const dadosPedido = {
+            produtosPedid: nomeProdutos,
+            precoFinal: valorTotal
+        }
+        console.log("endereço")
+        console.log(endereco)
+        console.log("dados do cartao")
+        console.log(dadosCartao)
+        console.log("dados do pedido")
+        console.log(dadosPedido)
+        
+        //alert(`Olá ${data.userName}, seu pedido efetuado com sucesso!`);
+        //window.location.reload(false);
+    }
+
+
    return ( 
     <body>
-        <div class="containerCheckout">
+        <form class="containerCheckout" onSubmit={handleSubmit}>
             <div class="containerEndereço">
                 <h2 class="tituloPadrao">1 - Endereço de entrega</h2>
-                <ul>
-                    <li class="containerLista"><label class="boxEndereço" for="endereço">CEP *</label></li>
-                    <li class="containerLista"><input class="addEndereço" name="endereço" required=""  id="endereço" type="text"/></li>
+                    <li class="containerLista"><label class="boxEndereço" for="cep">CEP *</label></li>
+                    <li class="containerLista"><input class="addEndereço" name="cep" required=""  id="cep" type="text"/></li>
 
                     <li class="containerLista"><label class="boxEndereço" for="rua">Rua/Avenida *</label></li>
                     <li class="containerLista"><input class="addEndereço"name="rua" required=""  id="rua" type="text"/></li>
@@ -35,7 +74,6 @@ function Checkout(dados7) {
 
                     <li class="containerLista"><label class="boxEndereço" for="estado">Estado *</label></li>
                     <li class="containerLista"><input class="addEndereço"name="estado" required=""  id="estado" type="text"/></li>
-               </ul>  
             </div>
 
 
@@ -79,10 +117,10 @@ function Checkout(dados7) {
                             </li>
 
                             <li class="containerLista">
-                                <label class="tituloCartao" for="textName">Nome do Titular</label>
+                                <label class="tituloCartao" for="usertName">Nome do Titular</label>
                             </li>
                             <li class="containerLista">
-                                <input class="dadosCartao" name="textName" required="" id="textName" type="text"/>
+                                <input class="dadosCartao" name="userName" required="" id="userName" type="text"/>
                             </li>
 
                             <li class="containerLista">
@@ -99,14 +137,14 @@ function Checkout(dados7) {
                             </li>
                                     
                             <li class="containerLista">
-                                <label class="tituloCartao" for="codigoSegurança">Código de Segurança   
+                                <label class="tituloCartao" for="codigoSeguranca">Código de Segurança   
                                 <i class="fa-solid fa-credit-card"></i>
                                 </label>
                             </li>
                             <li class="containerLista">
-                                <input class="dadosCartao" name="codigoSegurança"
+                                <input class="dadosCartao" name="codigoSeguranca"
                                             required=""  
-                                            id="codigoSegurança" 
+                                            id="codigoSeguranca" 
                                             type="text"/>
                             </li>
                             
@@ -115,13 +153,13 @@ function Checkout(dados7) {
                                 <label class="tituloCartao" for="select">Parcelamento</label>
                             </li>
                             <li class="containerLista">
-                                <select class="parcelamento" name="select">
-                                    <option value="valor1">Selecione a quantidade de parcelas</option>
-                                    <option value="valor2">1x de R$ 229,98 sem juros</option>
-                                    <option value="valor3">2x de R$ 114,99 sem juros</option>
-                                    <option value="valor4">3x de R$ 76,66 sem juros</option>
-                                    <option value="valor5">4x de R$ 56,50 sem juros</option>
-                                    <option value="valor6">5x de R$ 46,00 sem juros</option>
+                                <select class="parcelamento" name="parcelas">
+                                    <option value="0">Selecione a quantidade de parcelas</option>
+                                    <option value="1">1x de R$ 229,98 sem juros</option>
+                                    <option value="2">2x de R$ 114,99 sem juros</option>
+                                    <option value="3">3x de R$ 76,66 sem juros</option>
+                                    <option value="4">4x de R$ 56,50 sem juros</option>
+                                    <option value="5">5x de R$ 46,00 sem juros</option>
                                 </select>
                             </li> 
                         </ul>
@@ -189,12 +227,12 @@ function Checkout(dados7) {
                             </tr>
                         </table>
 
-                        <button class="botaoCompras">Finalizar Compra</button>
+                        <button class="botaoCompras" type='submit'>Finalizar Compra</button>
                     </div>
 
                 </div>
             </div>
-        </div>
+        </form>
     </body>
     );
 }
